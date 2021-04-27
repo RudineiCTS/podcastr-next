@@ -1,4 +1,17 @@
-export default function Home(props) {
+import {GetStaticProps} from 'next';
+import api from '../service/api';
+
+type Episodes ={
+  id: string;
+  title: string;
+  members: string;
+}
+
+type homeProps ={
+  episodes:  Episodes[];
+}
+
+export default function Home(props: homeProps) {
   return (
     <div>
     <h1>index</h1>
@@ -7,9 +20,15 @@ export default function Home(props) {
    
   )
 }
-export async function getStaticProps(){
-  const response = await fetch('http://localhost:3333/episodes')
-  const data = await response.json()
+export const getStaticProps: GetStaticProps = async() =>{
+  const { data } = await api.get('episodes',{
+    params:{
+      _limit: 12,
+      _sort: 'published_at',
+      _order:'desc'
+    }
+  })
+
   
   return {
     props: {
