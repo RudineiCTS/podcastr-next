@@ -1,4 +1,5 @@
 import {GetStaticProps} from 'next';
+import Link from 'next/link'
 
 import Image from 'next/image';
 import {format, parseISO} from 'date-fns';
@@ -44,7 +45,9 @@ export default function Home({latestEpisodes, allEpisodes}: homeProps) {
                 />
 
               <div className={styles.episodesDetails}>
+                <Link href={`episodes${episode.id}`}>
                 <a href="">{episode.title}</a>
+                </Link>
                 <p>{episode.members}</p>
                 <span>{episode.publishedAt}</span>
                 <span>{episode.durationAsString}</span>
@@ -63,12 +66,14 @@ export default function Home({latestEpisodes, allEpisodes}: homeProps) {
 
       <table cellSpacing={0}>
         <thead>
-          <th></th>
-          <th>Podcast</th>
-          <th>Integrantes</th>
-          <th>Data</th>
-          <th>Duração</th>
-          <th></th>
+          <tr>
+            <th></th>
+            <th>Podcast</th>
+            <th>Integrantes</th>
+            <th>Data</th>
+            <th>Duração</th>
+            <th></th>
+          </tr>
         </thead>
         <tbody>
           {allEpisodes.map(episode => {
@@ -84,7 +89,9 @@ export default function Home({latestEpisodes, allEpisodes}: homeProps) {
                   />
                 </td>
                 <td>
-                  <a href="">{episode.title}</a>
+                  <Link href={`episodes/${episode.id}`}>
+                    <a href="">{episode.title}</a>
+                  </Link>
                 </td>
                 <td>{episode.members}</td>
                 <td style={{width: 100}}>{episode.publishedAt}</td>
