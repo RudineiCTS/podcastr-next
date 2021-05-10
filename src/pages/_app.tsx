@@ -1,5 +1,6 @@
 import '../styles/global.scss';
 
+import { useState } from 'react';
 import { Header } from '../components/Header';
 import { Player } from '../components/Player';
 import { PlayerContext } from '../contexts/playerContext';
@@ -7,8 +8,16 @@ import { PlayerContext } from '../contexts/playerContext';
 import style from '../styles/app.module.scss';
 
 function MyApp({ Component, pageProps }) {
+  const [episodeList, setEpisodeList] = useState([]);
+  const [currentEpisodeIndex, setCurrentEpisodeIndex] =useState(0);
+
+  function play(episode){
+    setEpisodeList([episode]);
+    setCurrentEpisodeIndex(0);
+  }
+
   return (
-    <PlayerContext.Provider value="any">
+    <PlayerContext.Provider value={{ episodeList, currentEpisodeIndex, play}}>
       <div className={style.wrapper}>
         <main>
         <Header/>
